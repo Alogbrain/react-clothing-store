@@ -7,25 +7,27 @@ import ShopPage from "./pages/shop/shop.component";
 import HomePage from "./pages/homepage/homepage.component";
 import {checkUserSession, googleSignInStart, signOutStart} from "./redux/user/user.actions";
 import Header from "./components/header/header.component";
+import {GlobalStyle} from "./global.styles";
 const App = ({currentUser,checkUserSession, signInWithGoogle, signOutStart}) => {
     useEffect(() => {
         checkUserSession()
     }, [checkUserSession])
     return (
-        <Fragment>
+        <div>
+            <GlobalStyle/>
             <Header/>
-            <div>
-            {
-                currentUser ? <div>login success </div> : <div>login failure</div>
-            }
-            {
-                currentUser ? <button onClick={signOutStart}>Logout</button> :
-                    <button onClick={signInWithGoogle}>Login</button>
-            }
-            </div>
+            {/*<div>*/}
+            {/*{*/}
+            {/*    currentUser ? <div>login success </div> : <div>login failure</div>*/}
+            {/*}*/}
+            {/*{*/}
+            {/*    currentUser ? <button onClick={signOutStart}>Logout</button> :*/}
+            {/*        <button onClick={signInWithGoogle}>Login</button>*/}
+            {/*}*/}
+            {/*</div>*/}
             <Switch>
-                {/*<Route exact path="/" component={() => <HomePage {...currentUser}/>}/>*/}
-                {/*<Route path="/shop" component={ShopPage} />*/}
+                <Route exact path="/" component={HomePage}/>
+                <Route path="/shop" component={ShopPage} />
                 <Route
                     exact
                     path="/signin"
@@ -34,7 +36,7 @@ const App = ({currentUser,checkUserSession, signInWithGoogle, signOutStart}) => 
                     }
                 />
             </Switch>
-        </Fragment>
+        </div>
     )
 }
 
