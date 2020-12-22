@@ -8,6 +8,7 @@ import HomePage from "./pages/homepage/homepage.component";
 import {checkUserSession, googleSignInStart, signOutStart} from "./redux/user/user.actions";
 import Header from "./components/header/header.component";
 import {GlobalStyle} from "./global.styles";
+import SignInAndSignUp from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 const App = ({currentUser,checkUserSession, signInWithGoogle, signOutStart}) => {
     useEffect(() => {
         checkUserSession()
@@ -32,7 +33,7 @@ const App = ({currentUser,checkUserSession, signInWithGoogle, signOutStart}) => 
                     exact
                     path="/signin"
                     render={() =>
-                        currentUser ? <Redirect to="/"/> : null
+                        currentUser ? <Redirect to="/"/> : <SignInAndSignUp/>
                     }
                 />
             </Switch>
