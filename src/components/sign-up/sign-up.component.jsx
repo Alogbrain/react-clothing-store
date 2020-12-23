@@ -2,8 +2,9 @@ import React, {useState} from "react";
 import {SignUpContainer, SignUpTitle} from "./sign-up.styles";
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
-
-const SignUp = () => {
+import {connect} from "react-redux";
+import {signUpStart} from "../../redux/user/user.actions";
+const SignUp = ({signUpStart}) => {
     const [userCredentials, setUserCredentials] = useState({
         displayName: "",
         email: "",
@@ -17,12 +18,20 @@ const SignUp = () => {
 
         setUserCredentials({...userCredentials, [name]: value});
     }
+    const handleSubmit = async event => {
+        event.preventDefault();
 
+        if(password !== confirmPassword){
+            alert("password don't match")
+            return
+        }
+        signUpStart({displayName, email, password});
+    }
     return (
         <SignUpContainer>
-            {/*<SignUpTitle>I do not have an account</SignUpTitle>*/}
-            {/*<span>Sign up with your email and password</span>*/}
-            <form>
+            <SignUpTitle>I do not have an account</SignUpTitle>
+            <span>Sign up with your email and password</span>
+            <form onSubmit={handleSubmit}>
                 <FormInput
                     name="displayName"
                     type="text"
@@ -62,5 +71,7 @@ const SignUp = () => {
         </SignUpContainer>
     )
 };
-
-export default SignUp;
+const mapDispatchToProps = dispatch => ({
+    signUpStart: (userCredentials) => dispatch(signUpStart(userCredentials))
+})
+export default connect(null, mapDispatchToProps)(SignUp);

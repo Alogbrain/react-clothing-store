@@ -9,7 +9,8 @@ import {checkUserSession, googleSignInStart, signOutStart} from "./redux/user/us
 import Header from "./components/header/header.component";
 import {GlobalStyle} from "./global.styles";
 import SignInAndSignUp from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
-const App = ({currentUser,checkUserSession, signInWithGoogle, signOutStart}) => {
+import CheckoutPage from "./pages/checkout/checkout.component";
+const App = ({currentUser,checkUserSession}) => {
     useEffect(() => {
         checkUserSession()
     }, [checkUserSession])
@@ -17,21 +18,13 @@ const App = ({currentUser,checkUserSession, signInWithGoogle, signOutStart}) => 
         <div>
             <GlobalStyle/>
             <Header/>
-            {/*<div>*/}
-            {/*{*/}
-            {/*    currentUser ? <div>login success </div> : <div>login failure</div>*/}
-            {/*}*/}
-            {/*{*/}
-            {/*    currentUser ? <button onClick={signOutStart}>Logout</button> :*/}
-            {/*        <button onClick={signInWithGoogle}>Login</button>*/}
-            {/*}*/}
-            {/*</div>*/}
             <Switch>
                 <Route exact path="/" component={HomePage}/>
                 <Route path="/shop" component={ShopPage} />
+                <Route exact path="/checkout" component={CheckoutPage}/>
                 <Route
                     exact
-                    path="/signin"
+                    path="/sign-in"
                     render={() =>
                         currentUser ? <Redirect to="/"/> : <SignInAndSignUp/>
                     }
@@ -47,8 +40,6 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
     checkUserSession: () => dispatch(checkUserSession()),
-    signInWithGoogle : () => dispatch(googleSignInStart()),
-    signOutStart: () => dispatch(signOutStart())
 })
-// export default App;
+
 export default connect(mapStateToProps, mapDispatchToProps)(App);
