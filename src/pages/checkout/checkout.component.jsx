@@ -10,6 +10,7 @@ import {
 import {createStructuredSelector} from "reselect";
 import {selectCartItems, selectCartTotal} from "../../redux/cart/cart.selectors";
 import CheckoutItem from "../../components/checkout-item/checkout-item.component";
+import PaypalCheckOut from "../../components/paypal-checkout/paypal-checkout.component";
 
 const CheckoutPage = ({cartItems, total}) => (
     <CheckoutPageContainer>
@@ -41,7 +42,7 @@ const CheckoutPage = ({cartItems, total}) => (
             <br/>
             4242 4242 4242 4242 - Exp: 11/22 - CVV:123
         </WarningContainer>
-
+        <PaypalCheckOut/>
     </CheckoutPageContainer>
 )
 const mapStateToProps = createStructuredSelector({
