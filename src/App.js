@@ -10,6 +10,7 @@ import Header from "./components/header/header.component";
 import {GlobalStyle} from "./global.styles";
 import SignInAndSignUp from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 import CheckoutPage from "./pages/checkout/checkout.component";
+import PaypalCheckOut from "./components/paypal-checkout/paypal-checkout.component";
 const App = ({currentUser,checkUserSession}) => {
     useEffect(() => {
         checkUserSession()
