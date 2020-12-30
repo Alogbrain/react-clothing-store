@@ -41,8 +41,18 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 };
 
 export const convertCollectionsSnapshotToMap = collections => {
-    const transformedCollection = collections.docs.map(doc => {
-        const { title, items } = doc.data();
+    // const transformedCollection = collections.docs.map(doc => {
+    //     const { title, items } = doc.data();
+    //
+    //     return {
+    //         routeName: encodeURI(title.toLowerCase()),
+    //         id: doc.id,
+    //         title,
+    //         items,
+    //     };
+    // });
+    const transformedCollection = collections.map(doc => {
+        const { title, items } = doc;
 
         return {
             routeName: encodeURI(title.toLowerCase()),
@@ -51,7 +61,6 @@ export const convertCollectionsSnapshotToMap = collections => {
             items,
         };
     });
-
     return transformedCollection.reduce((accumulator, collection) => {
         accumulator[collection.title.toLowerCase()] = collection;
         return accumulator;

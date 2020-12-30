@@ -5,43 +5,21 @@ import axios from "axios";
 import {firestore, convertCollectionsSnapshotToMap} from "../../firebase/firebase.utils";
 import {fetchCollectionsSuccess, fetchCollectionsFailure} from "./shop.actions";
 
-export const fetchCollections = () =>{
-        return axios.get(`/collection/getAll`).then(
-            res => {
-                return res.data
-            }).catch(
-                err =>{
-                    console.log("ERROR" + err)
-                    throw err;
-                }
-        )
-}
-
 export function* fetchCollectionsAsync() {
     try {
         // const collectionRef = firestore.collection("collections");
         // const snapshot = yield collectionRef.get();
+        //
+        // console.log(snapshot)
 
-        // axios.get(`/collection/getAll`).then(
-        //     res => {
-        //         console.log(res)
-        //         const collectionsMap = call(
-        //             convertCollectionsSnapshotToMap,
-        //             res.data
-        //         );
-        //         console.log(collectionsMap)
-        //         put(fetchCollectionsSuccess(collectionsMap));
-        //     }
-        // )
+        const snapshot = yield call (fetch, '/collection/getAll');
+        const responseBody = yield snapshot.json();
 
-        const snapshot = fetchCollections();
-
-
-        // const collectionsMap = yield call(
-        //     convertCollectionsSnapshotToMap,
-        //     snapshot
-        // );
-        // yield put(fetchCollectionsSuccess(collectionsMap));
+        const collectionsMap = yield call(
+            convertCollectionsSnapshotToMap,
+            responseBody
+        );
+        yield put(fetchCollectionsSuccess(collectionsMap));
     } catch (error) {
         yield put(fetchCollectionsFailure(error.message));
     }
